@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:statemnexample/counter.dart';
 
-class InfoView extends StatefulWidget {
-  const InfoView({super.key});
+class InfoView extends StatelessWidget {
+  final Counter counter;
 
-  @override
-  State<InfoView> createState() => _InfoViewState();
-}
+  const InfoView({required this.counter, Key? key}) : super(key: key);
 
-class _InfoViewState extends State<InfoView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [],
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+      ),
+      backgroundColor: counter.color,
+      body: Align(
+        alignment: Alignment.center,
+        child: Observer(
+          builder: (_) => Text(
+            counter.text,
+          ),
+        ),
       ),
     );
   }
