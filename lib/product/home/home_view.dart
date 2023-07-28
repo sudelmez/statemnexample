@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:statemnexample/counter.dart';
+import 'package:provider/provider.dart';
+import 'package:statemnexample/modules/provider/provider_manager.dart';
 import 'package:statemnexample/product/info/info_view.dart';
 
 class HomeView extends StatelessWidget {
-  final Counter counter = Counter();
   final TextEditingController controller = TextEditingController();
 
   HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final provide = Provider.of<ProviderManager>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [_input(controller), _chooseColor(counter), _button(counter, controller, context)],
+        children: [_input(controller), _chooseColor(provide), _button( controller, context,provide)],
       ),
     );
   }
@@ -25,13 +26,13 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Row _chooseColor(Counter counter) {
+  Row _chooseColor(ProviderManager provide) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         InkWell(
           onTap: () {
-            counter.sendColor(Colors.yellow);
+            provide.sendColor(Colors.yellow);
           },
           child: Container(
             color: Colors.yellow,
@@ -41,7 +42,7 @@ class HomeView extends StatelessWidget {
         ),
         InkWell(
           onTap: () {
-            counter.sendColor(Colors.red);
+            provide.sendColor(Colors.red);
           },
           child: Container(
             color: Colors.red,
@@ -53,14 +54,14 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  ElevatedButton _button(Counter counter, TextEditingController controller, BuildContext context) {
+  ElevatedButton _button( TextEditingController controller, BuildContext context,ProviderManager provide) {
     return ElevatedButton(
       onPressed: () {
-        counter.sendText(controller.text);
+        provide.sendText(controller.text);
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => InfoView(counter: counter), 
+            builder: (context) => InfoView(), 
           ),
         );
       },

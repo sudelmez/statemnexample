@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:statemnexample/modules/provider/provider_manager.dart';
 import 'package:statemnexample/product/home/home_view.dart';
 
 void main() {
@@ -10,8 +12,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: HomeView(),
+    return ChangeNotifierProvider<ProviderManager>(
+      create: (context) => ProviderManager(),
+      child: MaterialApp(
+        home: HomeView(),
+      ),
     );
   }
 }
